@@ -8,6 +8,8 @@ from country_data_transformer import (
     parse_theme_data,
     parse_sdg_data
 )
+from fastapi.responses import JSONResponse
+import json
 
 # Initialize the FastAPI app
 app = FastAPI()
@@ -20,6 +22,74 @@ countries_data = scrape_countries()  # Scrape country names and URLs
 def root():
     return {"message": "World Bank Country Data API. Use /country/{country_name} to fetch data."}
 
+
+
+@app.get("/countries", response_class=HTMLResponse)
+def get_all_countries():
+    total_countries = len(countries_data)
+    country_list_html = ""
+
+    # Build the HTML to mimic a JSON structure
+    for country, link in countries_data.items():
+        country_list_html += f'''
+        <div style="margin-left: 20px;">
+            "{country}": <a href="{link}" target="_blank">"{link}"</a>,
+        </div>'''
+
+    # Create the full HTML content with JSON-like styling
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Countries and Links</title>
+        <style>
+            body {{
+                font-family: monospace;
+                margin: 20px;
+                background-color: #f4f4f4;
+            }}
+            h1 {{
+                font-family: Arial, sans-serif;
+                text-align: center;
+            }}
+            .json-block {{
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                margin-top: 20px;
+            }}
+            a {{
+                text-decoration: none;
+                color: #007bff;
+            }}
+            a:hover {{
+                text-decoration: underline;
+            }}
+            .json-brace {{
+                font-weight: bold;
+            }}
+            .json-key {{
+                color: #d73a49;
+            }}
+            .json-string {{
+                color: #032f62;
+            }}
+        </style>
+    </head>
+    <body>
+        <h1>Total Countries: {total_countries}</h1>
+        <div class="json-block">
+            <div class="json-brace">{"{"}</div>
+            {country_list_html.rstrip(",")}
+            <div class="json-brace">{"}"}</div>
+        </div>
+    </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content)
 
 @app.get("/country/{country_name}")
 def get_country_data(country_name: str):
