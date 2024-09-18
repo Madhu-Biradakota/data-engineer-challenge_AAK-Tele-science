@@ -1,0 +1,29 @@
+# created by virtualenv automatically
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment directory
+Radium/
+
+# PyCharm / IDE settings
+.idea/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Ignore environment and credentials files
+.env
+config/*.env
+
+# Ignore images (optional, unless you want to track them)
+images/
+
