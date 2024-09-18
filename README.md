@@ -14,32 +14,12 @@ Ensure the following are installed:
 
 ### Preinstalled Requirements:
 
-Install the required Python packages individually:
+Install dependencies by running
 
-- FastAPI:
   ```bash
-  pip install fastapi
+  pip install -r requirements.txt
   ```
-- Uvicorn (to run the FastAPI server):
-  ```bash
-  pip install uvicorn
-  ```
-- Requests:
-  ```bash
-  pip install requests
-  ```
-- BeautifulSoup (for web scraping):
-  ```bash
-  pip install beautifulsoup4
-  ```
-- Selenium (for handling dynamic content):
-  ```bash
-  pip install selenium
-  ```
-- WebDriver Manager (for managing browser drivers for Selenium):
-  ```bash
-  pip install webdriver-manager
-  ```
+
 
 Ensure you have **ChromeDriver** or your preferred Selenium WebDriver installed.
 
