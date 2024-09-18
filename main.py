@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
-import json
 from world_bank_country_scraper import scrape_countries
 from country_data_extractor import scrape_all_panels_selenium
 from country_data_transformer import (
